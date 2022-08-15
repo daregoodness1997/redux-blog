@@ -1,7 +1,12 @@
 import './App.css';
+import PostsList from './features/posts/PostsList';
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <main className='App'>
+      <PostsList />
+    </main>
+  );
 }
 
 export default App;
