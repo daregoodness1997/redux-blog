@@ -7,9 +7,7 @@ import {
   getPostsError,
   fetchPosts,
 } from './postsSlice';
-import PostAuthor from './PostAuthor';
-import TimeAgo from './TimeAgo';
-import ReactionButtons from './ReactionButtons';
+import PostsExcerpt from './PostsExcerpt';
 
 const PostsList = () => {
   const dispatch = useDispatch();
@@ -24,24 +22,26 @@ const PostsList = () => {
     }
   }, [postsStatus, dispatch]);
 
-  const orderedPost = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  let content;
 
-  const renderedPosts = orderedPost.map(post => (
-    <article key={post.id}>
-      <h3>{post.title}</h3>
-      <p>{post.body.substring(0, 100)}</p>
-      <PostAuthor userId={post.userId} />
-      <TimeAgo timestamp={post.date} />
-      <ReactionButtons post={post} />
-    </article>
-  ));
+  if (postsStatus === 'loading') {
+    content = <p>Loading...</p>;
+  } else if (postsStatus === 'succeeded') {
+    const orderedPost = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date));
+
+    content = orderedPost.map(post => (
+      <PostsExcerpt post={post} key={post.id} />
+    ));
+  } else if (postsStatus === 'failed') {
+    content = <p>{postsError}</p>;
+  }
 
   return (
     <section>
       <h2>Posts</h2>
-      {renderedPosts}
+      {content}
     </section>
   );
 };

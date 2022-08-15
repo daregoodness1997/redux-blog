@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postAdded } from './postsSlice';
+import { addNewPost } from './postsSlice';
 import { selectAllUsers } from '../users/usersSlice';
 
 const AddPostForm = () => {
   let dispatch = useDispatch();
 
-  const [values, setValues] = useState({ title: '', content: '', userId: '' });
+  const [values, setValues] = useState({
+    title: '',
+    content: '',
+    userId: '',
+    requestStatus: 'idle',
+  });
 
   const users = useSelector(selectAllUsers);
 
+  const canSave =
+    [values.title, values.content, values.userId].every(Boolean) &&
+    values.requestStatus === 'idle';
+
   const onSavePostSubmitted = e => {
     e.preventDefault();
-    dispatch(postAdded(values));
+    if (canSave) {
+      try {
+        setValues({ ...values, requestStatus: 'pending' });
+        dispatch(addNewPost({ ...values, body: values.content })).unwrap();
+      } catch (err) {
+        console.log('Failed to save the post', err);
+      } finally {
+        setValues({ ...values, requestStatus: 'idle' });
+      }
+    }
     setValues({ title: '', content: '', userId: '' });
   };
 
@@ -21,9 +39,6 @@ const AddPostForm = () => {
       {user.name}
     </option>
   ));
-
-  const canSave =
-    Boolean(values.title) && Boolean(values.content) && Boolean(values.userId);
 
   return (
     <section>
