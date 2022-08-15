@@ -3,11 +3,11 @@ import { reactionAdded } from './postsSlice';
 import React from 'react';
 
 const reactionEmoji = {
-  thumbsUp: 'Up',
-  wow: 'Wow',
-  heart: 'Heart',
-  rocket: 'Rocket',
-  coffee: 'Coffee',
+  thumbsUp: '👍',
+  wow: '😮',
+  heart: '❤️',
+  rocket: '🚀',
+  coffee: '☕', 
 };
 
 const ReactionButtons = ({ post }) => {
