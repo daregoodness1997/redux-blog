@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import { postAdded } from './postsSlice';
 
 const AddPostForm = () => {
@@ -9,7 +8,7 @@ const AddPostForm = () => {
 
   const onSavePostSubmitted = e => {
     e.preventDefault();
-    dispatch(postAdded({ ...values, id: nanoid() }));
+    dispatch(postAdded(values));
     setValues({ title: '', content: '' });
   };
 
