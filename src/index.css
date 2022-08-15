@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +7,8 @@
 }
 
 html {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  background: #333;
+  font-family: 'Manrope', sans-serif;
+  background: rgb(12, 12, 23);
   color: whitesmoke;
 }
 
@@ -34,8 +36,8 @@ section {
 }
 
 article {
-  margin: 0.5em 0.5em 0.5em 0;
-  border: 1px solid whitesmoke;
+  margin: 0.75em 0.5em 0.75em 0;
+  border: 1px dashed whitesmoke;
   border-radius: 10px;
   padding: 1em;
 }
@@ -66,4 +68,13 @@ form {
   border: none;
   color: whitesmoke;
   font-size: 1rem;
+}
+
+input,
+select,
+button,
+textarea {
+  padding: 0.4em;
+  border: none;
+  border-radius: 0.2rem;
 }
