@@ -26,13 +26,17 @@ select {
   margin-bottom: 1em;
 }
 
+button {
+  cursor: pointer;
+}
 main {
   max-width: 500px;
   margin: auto;
+  margin-top: 100px;
 }
 
 section {
-  margin-top: 1em;
+  margin-top: 100px;
 }
 
 article {
@@ -40,6 +44,13 @@ article {
   border: 1px dashed whitesmoke;
   border-radius: 10px;
   padding: 1em;
+}
+
+article a,
+section a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  letter-spacing: 0.4;
 }
 
 article:hover {
@@ -100,6 +111,7 @@ header {
   position: fixed;
   top: 0;
   left: 0;
+  height: 80px;
 }
 /* media query header */
 

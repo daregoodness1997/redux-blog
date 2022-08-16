@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewPost } from './postsSlice';
+import { updatePost, selectPostById, deletePost } from './postsSlice';
 import { selectAllUsers } from '../users/usersSlice';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const AddPostForm = () => {
+const EditPostForm = () => {
+  const { postId } = useParams();
   const navigate = useNavigate();
   let dispatch = useDispatch();
 
+  const users = useSelector(selectAllUsers);
+  const post = useSelector(state => selectPostById(state, Number(postId)));
   const [values, setValues] = useState({
-    title: '',
-    content: '',
-    userId: '',
+    title: post?.title,
+    content: post?.body,
+    userId: post?.userId,
     requestStatus: 'idle',
   });
 
-  const users = useSelector(selectAllUsers);
+  const canUpdate =
+    values.title !== post?.title ||
+    values.content !== post?.body ||
+    values.userId !== post?.userId;
 
   const canSave =
     [values.title, values.content, values.userId].every(Boolean) &&
-    values.requestStatus === 'idle';
+    values.requestStatus === 'idle' &&
+    canUpdate;
 
   const onSavePostSubmitted = e => {
     e.preventDefault();
     if (canSave) {
       try {
         setValues({ ...values, requestStatus: 'pending' });
-        dispatch(addNewPost({ ...values, body: values.content })).unwrap();
-        navigate('/');
+        dispatch(
+          updatePost({
+            ...values,
+            id: post.id,
+            body: values.content,
+            reactions: post.reactions,
+          })
+        ).unwrap();
+        navigate(`/post/${postId}`);
       } catch (err) {
         console.log('Failed to save the post', err);
       } finally {
@@ -37,15 +51,35 @@ const AddPostForm = () => {
     setValues({ title: '', content: '', userId: '' });
   };
 
+  const onDeletePostClick = () => {
+    try {
+      setValues({ ...values, requestStatus: 'pending' });
+      dispatch(deletePost({ id: post.id })).unwrap();
+      navigate(`/`);
+    } catch (err) {
+      console.log('Failed to delete the post', err);
+    } finally {
+      setValues({ ...values, requestStatus: 'idle' });
+    }
+  };
+
   const userOptions = users.map(user => (
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
   ));
 
+  if (!post) {
+    return (
+      <section>
+        <h2>Post not Found</h2>
+      </section>
+    );
+  }
+
   return (
     <section>
-      <h2>Add Post</h2>
+      <h2>Edit Post</h2>
       <form onSubmit={onSavePostSubmitted}>
         <label htmlFor='postTitle'>Post Title</label>
         <input
@@ -61,7 +95,7 @@ const AddPostForm = () => {
         <select
           id='postAuthor'
           name='postAuthor'
-          value={values.userId}
+          defaultValue={values.userId}
           onChange={e => setValues({ ...values, userId: e.target.value })}
         >
           <option value=''></option>
@@ -77,11 +111,17 @@ const AddPostForm = () => {
         />
 
         <button type='submit' disabled={!canSave}>
-          Save Post
+          Update Post
         </button>
       </form>
+      <button
+        style={{ width: '100%', background: 'red', color: 'white' }}
+        onClick={() => onDeletePostClick()}
+      >
+        Delete Post
+      </button>
     </section>
   );
 };
 
-export default AddPostForm;
+export default EditPostForm;
