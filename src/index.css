@@ -30,13 +30,18 @@ button {
   cursor: pointer;
 }
 main {
-  max-width: 500px;
+  max-width: 1200px;
   margin: auto;
   margin-top: 100px;
 }
 
 section {
+  max-width: 500px;
+  margin: auto;
   margin-top: 100px;
+}
+section.postList {
+  max-width: 100%;
 }
 
 article {
@@ -127,6 +132,9 @@ header {
     margin-right: 0.6rem;
     font-size: 0.6rem;
   }
+  section.postList {
+    grid-template-columns: 1fr;
+  }
 }
 
 header h1 {
@@ -154,4 +162,17 @@ ul li a {
 ul li a:hover {
   background: rgb(12, 12, 23);
   border: 1px dashed whitesmoke;
+}
+
+/* post list */
+section.postList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+}
+
+@media (max-width: 768px) {
+  section.postList {
+    grid-template-columns: 1fr;
+  }
 }
