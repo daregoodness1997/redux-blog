@@ -23,7 +23,7 @@ const SingleUser = () => {
   return (
     <section>
       <h2>{user.name}</h2>
-      <ul>{renderedpostTitles}</ul>
+      <ol>{renderedpostTitles}</ol>
     </section>
   );
 };

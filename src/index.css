@@ -159,17 +159,20 @@ header ul li a {
   font-size: 1.2rem;
 }
 
-ul li a {
+ul li a,
+ol li a {
   display: block;
   padding: 1rem 1rem 1rem 0;
   transition: all 0.5s ease;
 }
 
-section ul {
+section ul,
+section ol {
   margin-top: 1.4rem;
 }
 
-ul li a:hover {
+ul li a:hover,
+ol li a:hover {
   color: rgb(211, 211, 242);
 }
 
