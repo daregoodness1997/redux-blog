@@ -1,13 +1,157 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  font-family: 'Manrope', sans-serif;
+  background: rgb(12, 12, 23);
+  color: whitesmoke;
+}
+
+body {
+  min-height: 100vh;
+  font-size: 1.5rem;
+  padding: 0 10% 10%;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  margin-bottom: 1em;
+}
+
+button {
+  cursor: pointer;
+}
+main {
+  max-width: 500px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+section {
+  margin-top: 100px;
+}
+
+article {
+  margin: 0.75em 0.5em 0.75em 0;
+  border: 1px dashed whitesmoke;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+article a,
+section a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  letter-spacing: 0.4;
+}
+
+article:hover {
+  background: rgb(3, 3, 10);
+  border: 1px solid rgb(3, 3, 10);
+  box-shadow: 4px 4px 16px rgba(3, 3, 10, 0.08);
+  transition: all 0.6s ease-in-out;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+  font-size: 1.2rem;
+  margin: 0.5em 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.postCredit {
+  font-size: 1rem;
+}
+
+.reactionButton {
+  margin: 0 0.25em 0 0;
+  background: transparent;
+  border: none;
+  color: whitesmoke;
+  font-size: 1rem;
+}
+
+input,
+select,
+button,
+textarea {
+  padding: 0.4em;
+  border: none;
+  border-radius: 0.2rem;
+}
+
+a {
+  color: white;
+}
+
+header {
+  width: 100vw;
+  background: rgb(3, 3, 10);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 120px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 80px;
+}
+/* media query header */
+
+@media (max-width: 768px) {
+  header {
+    padding: 0.5em 1rem;
+  }
+  header h1 {
+    font-size: 1.4rem;
+  }
+  ul li a {
+    padding: 0.6rem;
+    margin-right: 0.6rem;
+    font-size: 0.6rem;
+  }
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+ul {
+  list-style: none;
+}
+
+ul li {
+  display: inline-block;
+}
+
+ul li a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-right: 1rem;
+  transition: all 0.5s ease;
+  font-size: 1.2rem;
+}
+
+ul li a:hover {
+  background: rgb(12, 12, 23);
+  border: 1px dashed whitesmoke;
 }
