@@ -14,7 +14,7 @@ const EditPostForm = () => {
   const [values, setValues] = useState({
     title: post?.title,
     content: post?.body,
-    userId: post?.userId,
+    userId: Number(post?.userId),
     requestStatus: 'idle',
   });
 
