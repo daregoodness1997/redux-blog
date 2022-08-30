@@ -1,4 +1,8 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { sub } from 'date-fns';
 import axios from 'axios';
 
@@ -8,6 +12,7 @@ const initialState = {
   posts: [],
   status: 'idle',
   error: null,
+  count: 0,
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPost', async () => {
@@ -63,33 +68,15 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    postAdded: {
-      reducer(state, action) {
-        state.posts.push(action.payload);
-      },
-      prepare(values) {
-        return {
-          payload: {
-            ...values,
-            id: nanoid(),
-            date: new Date().toISOString(),
-            reactions: {
-              thumbsUp: 0,
-              wow: 0,
-              heart: 0,
-              rocket: 0,
-              coffee: 0,
-            },
-          },
-        };
-      },
-    },
     reactionAdded(state, action) {
       const { postId, reaction } = action.payload;
       const existingPost = state.posts.find(post => post.id === postId);
       if (existingPost) {
         existingPost.reactions[reaction]++;
       }
+    },
+    increaseCount(state, action) {
+      state.count = state.count + 1;
     },
   },
   extraReducers(builder) {
@@ -165,9 +152,14 @@ const postsSlice = createSlice({
 export const SelectAllPosts = state => state.posts.posts;
 export const getPostsStatus = state => state.posts.status;
 export const getPostsError = state => state.posts.error;
+export const getPostsCount = state => state.posts.count;
 export const selectPostById = (state, postId) =>
   state.posts.posts.find(post => post.id === postId);
+export const selectPostsByUser = createSelector(
+  [SelectAllPosts, (state, userId) => userId],
+  (posts, userId) => posts.filter(post => post.userId === userId)
+);
 
-export const { postAdded, reactionAdded } = postsSlice.actions;
+export const { reactionAdded, increaseCount } = postsSlice.actions;
 
 export default postsSlice.reducer;
