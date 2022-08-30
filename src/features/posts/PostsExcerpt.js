@@ -4,7 +4,7 @@ import PostAuthor from './PostAuthor';
 import ReactionButtons from './ReactionButtons';
 import TimeAgo from './TimeAgo';
 
-const PostsExcerpt = ({ post }) => {
+let PostsExcerpt = ({ post }) => {
   return (
     <article>
       <h3>{post.title}</h3>
@@ -20,5 +20,10 @@ const PostsExcerpt = ({ post }) => {
     </article>
   );
 };
+
+
+// First
+
+PostsExcerpt = React.memo(PostsExcerpt);
 
 export default PostsExcerpt;

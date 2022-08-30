@@ -155,9 +155,9 @@ export const getPostsError = state => state.posts.error;
 export const getPostsCount = state => state.posts.count;
 export const selectPostById = (state, postId) =>
   state.posts.posts.find(post => post.id === postId);
-export const selectPostByUser = createSelector(
+export const selectPostsByUser = createSelector(
   [SelectAllPosts, (state, userId) => userId],
-  (posts, userId) => posts.find(post => post.user === userId)
+  (posts, userId) => posts.filter(post => post.userId === userId)
 );
 
 export const { reactionAdded, increaseCount } = postsSlice.actions;
